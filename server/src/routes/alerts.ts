@@ -1,0 +1,2 @@
+import {Router} from 'express';import {authenticate,allowRoles} from '../middleware/auth';import {listAlerts,updateAlert,deleteAlert} from '../controllers/operationalController';const r=Router();r.use(authenticate,allowRoles('admin','production_manager'));r.get('/',listAlerts);r.put('/:id',allowRoles('admin','production_manager','quality_manager','inventory_manager'),updateAlert);r.delete('/:id',allowRoles('admin'),deleteAlert);export default r;
+

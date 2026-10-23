@@ -1,0 +1,2 @@
+import {Router} from 'express';import {authenticate,allowRoles} from '../middleware/auth';import {listConsumption,createConsumption} from '../controllers/operationalController';const r=Router();r.use(authenticate,allowRoles('admin','inventory_manager','production_manager'));r.get('/',listConsumption);r.post('/',allowRoles('admin','inventory_manager','production_manager'),createConsumption);export default r;
+

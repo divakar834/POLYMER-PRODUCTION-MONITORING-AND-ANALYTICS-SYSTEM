@@ -1,0 +1,10 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { login, register, getMe } from '../controllers/authController';
+import { authenticate } from '../middleware/auth';
+import { validateRequest } from '../middleware/validateRequest';
+const router=Router();
+router.post('/login',[body('email').isEmail().normalizeEmail(),body('password').isLength({min:1})],validateRequest,login);
+router.post('/register',authenticate,[body('email').isEmail().normalizeEmail(),body('password').isLength({min:8}),body('first_name').trim().notEmpty(),body('last_name').trim().notEmpty(),body('role_id').isInt({min:1,max:4})],validateRequest,register);
+router.get('/me',authenticate,getMe);
+export default router;
